@@ -1,0 +1,17 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "myContainerName": "miniature",
+    "WEBSITE_SLOT_NAME": "Production",
+    "FUNCTIONS_EXTENSION_VERSION": "~1",
+    "ScmType": "None",
+    "WEBSITE_AUTH_ENABLED": "False",
+    "myBlobStorage_STORAGE": "DefaultEndpointsProtocol=https;AccountName=eventgridnfc;AccountKey=xNGAMoHeYg6cdtvYo7q7m/wHK4RrBHU6KwowK0HhL7Y4pJATJTsliWIjXGSszMy3FbEe2N8qpfx5aYSpFGRMeg==;EndpointSuffix=core.windows.net",
+    "AzureWebJobsDashboard": "DefaultEndpointsProtocol=https;AccountName=eventgridnfc;AccountKey=xNGAMoHeYg6cdtvYo7q7m/wHK4RrBHU6KwowK0HhL7Y4pJATJTsliWIjXGSszMy3FbEe2N8qpfx5aYSpFGRMeg==",
+    "WEBSITE_NODE_DEFAULT_VERSION": "6.5.0",
+    "myContainerKO": "bad",
+    "WEBSITE_SITE_NAME": "StorageEvents",
+    "myContainerOK": "good",
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=eventgridnfc;AccountKey=xNGAMoHeYg6cdtvYo7q7m/wHK4RrBHU6KwowK0HhL7Y4pJATJTsliWIjXGSszMy3FbEe2N8qpfx5aYSpFGRMeg=="
+  }
+}

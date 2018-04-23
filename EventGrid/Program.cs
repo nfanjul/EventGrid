@@ -10,27 +10,31 @@ namespace EventGridConsole
 {
     class Program
     {
-        private const string TOPIC_ENDPOINT = "https://customtopic.northeurope-1.eventgrid.azure.net/api/events";
+        private const string TOPIC_ENDPOINT = "[URL CUSTOM TOPIC}";
 
-        private const string KEY = "{azure-topic-key}";
+        private const string KEY = "[CUSTOM TOPIC KEY]";
 
         static void Main(string[] args)
         {
-            #region Console code
-            Console.Title = "4Sessions - 17 de febrero de 2018";
-            var events = new List<Event>();
-            Console.Write("Introduzca la información del equipo:" + "\n");
-            Console.WriteLine("Nombre: ");
-            var name = Console.ReadLine();
-            Console.WriteLine("Estadio: ");
-            var stadium = Console.ReadLine();
-            Console.WriteLine("Pais: ");
-            var country = Console.ReadLine();
-            #endregion
-            events.Add(new Event { AddProperties = new Team { Name = name, Stadium = stadium, Country = country, Type = "TEAM" } });
-            SendEventsToTopic(events).Wait();
-            Console.WriteLine("-------------------------- FIN! --------------------------");
-            Console.ReadLine();
+            while(true)
+            {
+                #region Console code
+                Console.Title = "Global Azure Bootcamp - 21 de abril de 2018";         
+                Console.Write("Introduzca la información del equipo:" + "\n");
+                Console.WriteLine("Nombre: ");
+                var name = Console.ReadLine();
+                Console.WriteLine("Estadio: ");
+                var stadium = Console.ReadLine();
+                Console.WriteLine("Pais: ");
+                var country = Console.ReadLine();
+                #endregion
+                var events = new List<Event>
+                {
+                    new Event { UpdateProperties = new Team { Name = name, Stadium = stadium, Country = country, Type = "All" } }
+                };
+                SendEventsToTopic(events).Wait();
+                Console.WriteLine("-------------------------- FIN! --------------------------");
+            }
         }
 
         private static async Task SendEventsToTopic(object events)

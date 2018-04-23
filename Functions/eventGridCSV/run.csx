@@ -41,6 +41,7 @@ public static async Task Run(EventGridEvent myEvent, Stream inputBlob, TraceWrit
 
 private static CloudBlobClient GetClient()
 {
+
     // Retrieve storage account from connection string.
     CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageAccountConnectionString);
 

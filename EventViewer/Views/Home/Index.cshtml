@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Global Azure Bootcamp 2018";
+}
+
+<div>
+    <p style="float: left; font-size: 24px;" class="lead">
+        <img src="~/images/azurebootcamp.jpg" height="90" width="90" alt="Global Azure Bootcamp 2018" />
+        <strong>Visor Eventos</strong>
+        <button class="btn btn-danger btn-xs" id="delete">
+            <span class="glyphicon glyphicon-trash"></span>
+        </button>
+    </p>
+</div>
+
+<div style="clear: both;"></div>
+<hr /><br /><br />
+
+<table id="eventGridTable" class="table table-striped">
+    <thead>
+        <tr>
+            <td>
+                json
+            </td>
+            <td>
+                Tipo de Evento
+            </td>
+            <td>
+                Data
+            </td>
+        </tr>
+    </thead>
+    <tbody id="eventGridBody"></tbody>
+</table>
+
+<script id="eventTemplate" type="text/x-handlebars-template">
+    <tr data-toggle="collapse" data-target="#event-{{id}}" class="accordian-toggle">
+        <td>
+            <button class="btn btn-primary btn-xs">
+                <span class="glyphicon glyphicon-collapse-down"></span>
+            </button>
+        </td>
+        <td>{{eventGridType}}</td>
+        <td>{{eventGridSubject}}</td>
+    </tr>
+    <tr class="hiddenRow collapse" id="event-{{id}}">
+        <td colspan="12">
+            <div class="accordian-body">
+                <pre class="prettyprint">
+                    {{eventGrid}}
+                </pre>
+            </div>
+        </td>
+    </tr>
+</script>
+
+@section scripts {
+    <script src="~/lib/signalr/signalr.min.js" type="text/javascript"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+    <script type="text/javascript">
+        var hubConnection;
+
+        var clear = function () {
+            $("#eventGridTable").find("tr:gt(0)").remove();
+            $("#eventGridTable").hide();
+        }
+
+        var addEvent = function (id, eventType, subject, eventTime, data) {
+            var context = {
+                eventGridType: eventType,
+                eventGridSubject: subject,
+                id: id,
+                eventGrid: data
+            };
+
+            var source = document.getElementById('eventTemplate').innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template(context);
+
+            $("#eventGridTable").show();
+            $('#eventGridBody').prepend(html);
+        }
+
+        var initialize = function () {
+            $("#eventGridTable").hide();
+            $('#delete').click(function () {
+                clear();
+            });
+
+            hubConnection = new signalR.HubConnection('hubs/eventgrid');
+
+            hubConnection.start();
+
+            hubConnection.on('eventgridupdate', function (id, eventType, subject, eventTime, data) {
+                addEvent(id, eventType, subject, eventTime, data);
+            });
+        };
+
+        $(document).ready(function () {
+            initialize();
+        });
+    </script>
+}

@@ -11,7 +11,7 @@ namespace EventGridConsole.Entities
             EventTime = DateTime.UtcNow.ToString("o");
         }
 
-        public Team AddProperties
+        public Team UpdateProperties
         {
             set
             {
