@@ -1,4 +1,4 @@
-﻿namespace EventGridConsole.Entities
+﻿namespace EventGridConsole.Core.Entities
 {
     public class Team
     {

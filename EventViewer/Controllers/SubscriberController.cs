@@ -56,6 +56,10 @@ namespace EventViewer.Controllers
                             item.ToString());
                     }
                 }
+                else
+                {
+                    return BadRequest();
+                }
             }
             return Ok("Hello Post");
         }
