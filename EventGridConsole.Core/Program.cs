@@ -10,10 +10,9 @@ namespace EventGridConsole.Core
 {
     class Program
     {
-        //private const string TOPIC_ENDPOINT = "https://eventgrid.azurewebsites.net/api/Subscriber";
-        private const string TOPIC_ENDPOINT = "http://localhost:5000/api/Subscriber";
+        private const string TOPIC_ENDPOINT = "https://eventgrid.azurewebsites.net/api/Subscriber";
 
-        private const string KEY = "/FA6v0naObQNKh539Ob6zjG7vyMNtk8Tggukx7xP/DY=";
+        private const string KEY = "sFHiIFIjMhIoB10aOebhs2tZcsfdatqx44xCip9+s94=";
 
         static void Main(string[] args)
         {

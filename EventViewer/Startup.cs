@@ -1,5 +1,4 @@
-﻿using EventViewer.AuthorizationPolicy;
-using EventViewer.Hubs;
+﻿using EventViewer.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
