@@ -33,9 +33,9 @@ namespace EventViewer.Controllers
 
         #region Constructors
 
-        public SubscriberController(IHubContext<EventGridHub> gridEventsHubContext)
+        public SubscriberController(IHubContext<EventGridHub> eventGridHubContext)
         {
-            this._hubContext = gridEventsHubContext;
+            _hubContext = eventGridHubContext;
         }
 
         #endregion
@@ -82,7 +82,7 @@ namespace EventViewer.Controllers
                 JsonConvert.DeserializeObject<List<Event<Dictionary<string, string>>>>(jsonContent)
                     .First();
 
-            await this._hubContext.Clients.All.SendAsync(
+            await _hubContext.Clients.All.SendAsync(
                 "gridupdate",
                 gridEvent.Id,
                 gridEvent.EventType,
@@ -106,7 +106,7 @@ namespace EventViewer.Controllers
                 // Invoke a method on the clients for 
                 // an event grid notiification.                        
                 var details = JsonConvert.DeserializeObject<Event<dynamic>>(e.ToString());
-                await this._hubContext.Clients.All.SendAsync(
+                await _hubContext.Clients.All.SendAsync(
                     "gridupdate",
                     details.Id,
                     details.EventType,
@@ -124,7 +124,7 @@ namespace EventViewer.Controllers
 
             // CloudEvents schema and mapping to 
             // Event Grid: https://docs.microsoft.com/en-us/azure/event-grid/cloudevents-schema 
-            await this._hubContext.Clients.All.SendAsync(
+            await _hubContext.Clients.All.SendAsync(
                 "gridupdate",
                 details.EventId,
                 details.EventType,

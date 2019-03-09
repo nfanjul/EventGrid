@@ -10,8 +10,7 @@ namespace EventGridConsole.Core
 {
     class Program
     {
-        private const string TOPIC_ENDPOINT = "https://eventgrid.azurewebsites.net/api/Subscriber";
-
+        private const string TOPIC_ENDPOINT = "https://mytopicnfc.westeurope-1.eventgrid.azure.net/api/events";
         private const string KEY = "sFHiIFIjMhIoB10aOebhs2tZcsfdatqx44xCip9+s94=";
 
         static void Main(string[] args)

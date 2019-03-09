@@ -58,8 +58,6 @@
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
     <script type="text/javascript">
-        var hubConnection;
-
         var clear = function () {
             $("#eventGridTable").find("tr:gt(0)").remove();
             $("#eventGridTable").hide();
@@ -86,12 +84,16 @@
             $('#delete').click(function () {
                 clear();
             });
+            const hubConnection = new signalR.HubConnectionBuilder()
+                .withUrl("hubs/eventgrid")
+                .configureLogging(signalR.LogLevel.Information)
+                .build();
 
-            hubConnection = new signalR.HubConnection('hubs/eventgrid');
+            //hubConnection = new signalR.HubConnection('hubs/eventgrid');
 
             hubConnection.start();
 
-            hubConnection.on('eventgridupdate', function (id, eventType, subject, eventTime, data) {
+            hubConnection.on('gridupdate', function (id, eventType, subject, eventTime, data) {
                 addEvent(id, eventType, subject, eventTime, data);
             });
         };
