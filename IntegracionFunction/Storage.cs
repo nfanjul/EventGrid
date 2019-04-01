@@ -16,7 +16,7 @@ namespace IntegracionFunction
 {
     public static class Storage
     {
-        static readonly string storageAccountConnectionString = "DefaultEndpointsProtocol=https;AccountName=myeventgridfunction;AccountKey=ekyfREQdK7fOw3bdNN/S0F/oBMesqZnHXL1BNiexHHSc1+ozlXu1mvEmQYjx+p5wcZS0BpKLWt9Anm1zQcILww==;EndpointSuffix=core.windows.net";
+        static readonly string storageAccountConnectionString = "DefaultEndpointsProtocol=https;AccountName=myeventgridfunction;AccountKey=ekyfREQdK7fOw3bdNN/S0F/oBMesqZnHXL1BNiexHHSc1+ozlXu1mvEmQYjx+p5wcZSKLWt9Anm1zQcILww==;EndpointSuffix=core.windows.net";
         static readonly string containerOK = Environment.GetEnvironmentVariable("myContainerOK");
         static readonly string containerKO = Environment.GetEnvironmentVariable("myContainerKO");
         private static ILogger _log;
