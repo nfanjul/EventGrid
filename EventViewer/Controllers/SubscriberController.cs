@@ -48,18 +48,14 @@ namespace EventViewer.Controllers
             using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
                 var jsonContent = await reader.ReadToEndAsync();
-
-                // Check the event type.
-                // Return the validation code if it's 
-                // a subscription validation request. 
+                
                 if (EventTypeSubcriptionValidation)
                 {
                     return await HandleValidation(jsonContent);
                 }
                 else if (EventTypeNotification)
                 {
-                    // Check to see if this is passed in using
-                    // the CloudEvents schema
+                    
                     if (IsCloudEvent(jsonContent))
                     {
                         return await HandleCloudEvent(jsonContent);
@@ -90,7 +86,6 @@ namespace EventViewer.Controllers
                 gridEvent.EventTime.ToString(),
                 jsonContent.ToString());
 
-            // Retrieve the validation code and echo back.
             var validationCode = gridEvent.Data["validationCode"];
             return new JsonResult(new
             {

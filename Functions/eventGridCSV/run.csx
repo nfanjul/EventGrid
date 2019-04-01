@@ -7,7 +7,7 @@ using Microsoft.Azure.WebJobs.Host.Bindings.Runtime;
 using Microsoft.WindowsAzure.Storage; 
 using Microsoft.WindowsAzure.Storage.Blob;
 
-static string storageAccountConnectionString = System.Environment.GetEnvironmentVariable("myblobstorage_STORAGE");
+static string storageAccountConnectionString = System.Environment.GetEnvironmentVariable("CONTENTAZUREFILECONNECTIONSTRING");
 static string thumbContainerOK = System.Environment.GetEnvironmentVariable("myContainerOK");
 static string thumbContainerKO = System.Environment.GetEnvironmentVariable("myContainerKO");
 
