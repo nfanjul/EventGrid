@@ -7,7 +7,7 @@ namespace EventGridConsole.Core.Entities
         public Event()
         {
             Id = Guid.NewGuid().ToString();
-            EventType = "teamData";
+            EventType = "NFC.EventGrid.TeamData";
             EventTime = DateTime.UtcNow.ToString("o");
         }
 

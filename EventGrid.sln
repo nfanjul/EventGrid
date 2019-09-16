@@ -1,21 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01. Console Send Event", "01. Console Send Event", "{356208FE-55EE-40B8-8DD0-FEE0E97B82BA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LogicApp StorageTwitter", "LogicApp StorageTwitter", "{21CAFD98-7BD9-4676-B7D9-ED6A0B2931DF}"
-	ProjectSection(SolutionItems) = preProject
-		LogicAppStorageTwitter\LogicApp.JPG = LogicAppStorageTwitter\LogicApp.JPG
-		LogicAppStorageTwitter\LogicAppStorageTwitter.json = LogicAppStorageTwitter\LogicAppStorageTwitter.json
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StorageEvents", "Functions\StorageEvents.csproj", "{DBC70E6B-B339-4F64-A48B-691B1BA3F914}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo 1", "Demo 1", "{C60C60AE-3D7B-451D-91C7-A01D919A888A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo 2", "Demo 2", "{F5D2AADF-19A8-4E1B-8DE5-EC09D34B6ACC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo 4", "Demo 4", "{3AC8C0E2-F2AE-4236-AACE-7DB0219B18E8}"
 EndProject
@@ -25,18 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventViewer", "EventViewer\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventGridConsole.Core", "EventGridConsole.Core\EventGridConsole.Core.csproj", "{234D30A8-B171-48AC-8613-DADB4C8CBAC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegracionFunction", "IntegracionFunction\IntegracionFunction.csproj", "{81B9825C-D395-445D-94F9-BEA7891135D0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DBC70E6B-B339-4F64-A48B-691B1BA3F914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBC70E6B-B339-4F64-A48B-691B1BA3F914}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DBC70E6B-B339-4F64-A48B-691B1BA3F914}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DBC70E6B-B339-4F64-A48B-691B1BA3F914}.Release|Any CPU.Build.0 = Release|Any CPU
 		{156F6B20-A34E-4DE4-BD37-77223B41485D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{156F6B20-A34E-4DE4-BD37-77223B41485D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{156F6B20-A34E-4DE4-BD37-77223B41485D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,22 +27,15 @@ Global
 		{234D30A8-B171-48AC-8613-DADB4C8CBAC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{234D30A8-B171-48AC-8613-DADB4C8CBAC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{234D30A8-B171-48AC-8613-DADB4C8CBAC4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81B9825C-D395-445D-94F9-BEA7891135D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81B9825C-D395-445D-94F9-BEA7891135D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81B9825C-D395-445D-94F9-BEA7891135D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81B9825C-D395-445D-94F9-BEA7891135D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{356208FE-55EE-40B8-8DD0-FEE0E97B82BA} = {3AC8C0E2-F2AE-4236-AACE-7DB0219B18E8}
-		{21CAFD98-7BD9-4676-B7D9-ED6A0B2931DF} = {F5D2AADF-19A8-4E1B-8DE5-EC09D34B6ACC}
-		{DBC70E6B-B339-4F64-A48B-691B1BA3F914} = {C60C60AE-3D7B-451D-91C7-A01D919A888A}
 		{2F1979EB-3103-42FA-8774-958E4E82D1C7} = {3AC8C0E2-F2AE-4236-AACE-7DB0219B18E8}
 		{156F6B20-A34E-4DE4-BD37-77223B41485D} = {2F1979EB-3103-42FA-8774-958E4E82D1C7}
 		{234D30A8-B171-48AC-8613-DADB4C8CBAC4} = {356208FE-55EE-40B8-8DD0-FEE0E97B82BA}
-		{81B9825C-D395-445D-94F9-BEA7891135D0} = {C60C60AE-3D7B-451D-91C7-A01D919A888A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3D052F33-1733-4673-8B91-9BD22C61439C}

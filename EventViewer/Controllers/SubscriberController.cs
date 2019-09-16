@@ -2,10 +2,11 @@
 using EventViewer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Azure.EventGrid;
+using Microsoft.Azure.EventGrid.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,14 +19,6 @@ namespace EventViewer.Controllers
     public class SubscriberController : Controller
     {
         #region Data Members
-
-        private bool EventTypeSubcriptionValidation
-            => HttpContext.Request.Headers["aeg-event-type"].FirstOrDefault() ==
-               "SubscriptionValidation";
-
-        private bool EventTypeNotification
-            => HttpContext.Request.Headers["aeg-event-type"].FirstOrDefault() ==
-               "Notification";
 
         private readonly IHubContext<EventGridHub> _hubContext;
 
@@ -47,110 +40,47 @@ namespace EventViewer.Controllers
         {
             using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
-                var jsonContent = await reader.ReadToEndAsync();
-                
-                if (EventTypeSubcriptionValidation)
+                string requestContent = await reader.ReadToEndAsync();
+                EventGridSubscriber eventGridSubscriber = new EventGridSubscriber();
+                EventGridEvent[] eventGridEvents = eventGridSubscriber.DeserializeEventGridEvents(requestContent);
+                foreach (EventGridEvent eventGridEvent in eventGridEvents)
                 {
-                    return await HandleValidation(jsonContent);
-                }
-                else if (EventTypeNotification)
-                {
-                    
-                    if (IsCloudEvent(jsonContent))
+                    if (eventGridEvent.Data is SubscriptionValidationEventData)
                     {
-                        return await HandleCloudEvent(jsonContent);
+                        var validationResult = await ValidationHandler(eventGridEvent);
+                        return Ok(validationResult);
                     }
-
-                    return await HandleGridEvents(jsonContent);
+                    await EventCustomHandler(eventGridEvent);
+                    return Ok();
                 }
-
-                return BadRequest();
             }
+            return Ok();
         }
 
         #endregion
 
         #region Private Methods
 
-        private async Task<JsonResult> HandleValidation(string jsonContent)
+        private async Task<SubscriptionValidationResponse> ValidationHandler(EventGridEvent eventGridEvent)
         {
-            var gridEvent =
-                JsonConvert.DeserializeObject<List<Event<Dictionary<string, string>>>>(jsonContent)
-                    .First();
+            await EventCustomHandler(eventGridEvent);
 
+            var eventData = (SubscriptionValidationEventData)eventGridEvent.Data;
+            return new SubscriptionValidationResponse()
+            {
+                ValidationResponse = eventData.ValidationCode
+            };
+        }
+
+        private async Task EventCustomHandler(EventGridEvent eventGridEvent)
+        {
             await _hubContext.Clients.All.SendAsync(
                 "gridupdate",
-                gridEvent.Id,
-                gridEvent.EventType,
-                gridEvent.Subject,
-                gridEvent.EventTime.ToString(),
-                jsonContent.ToString());
-
-            var validationCode = gridEvent.Data["validationCode"];
-            return new JsonResult(new
-            {
-                validationResponse = validationCode
-            });
-        }
-
-        private async Task<IActionResult> HandleGridEvents(string jsonContent)
-        {
-            var events = JArray.Parse(jsonContent);
-            foreach (var e in events)
-            {
-                // Invoke a method on the clients for 
-                // an event grid notiification.                        
-                var details = JsonConvert.DeserializeObject<Event<dynamic>>(e.ToString());
-                await _hubContext.Clients.All.SendAsync(
-                    "gridupdate",
-                    details.Id,
-                    details.EventType,
-                    details.Subject,
-                    details.EventTime.ToString(),
-                    e.ToString());
-            }
-
-            return Ok();
-        }
-
-        private async Task<IActionResult> HandleCloudEvent(string jsonContent)
-        {
-            var details = JsonConvert.DeserializeObject<CloudEvent<dynamic>>(jsonContent);
-
-            // CloudEvents schema and mapping to 
-            // Event Grid: https://docs.microsoft.com/en-us/azure/event-grid/cloudevents-schema 
-            await _hubContext.Clients.All.SendAsync(
-                "gridupdate",
-                details.EventId,
-                details.EventType,
-                details.Source,
-                details.EventTime,
-                jsonContent
-            );
-
-            return Ok();
-        }
-
-        private static bool IsCloudEvent(string jsonContent)
-        {
-            // Cloud events are sent one at a time, while Grid events
-            // are sent in an array. As a result, the JObject.Parse will 
-            // fail for Grid events. 
-            try
-            {
-                // Attempt to read one JSON object. 
-                var eventData = JObject.Parse(jsonContent);
-
-                // Check for the cloud events version property.
-                var version = eventData["cloudEventsVersion"].Value<string>();
-                if (!string.IsNullOrEmpty(version)) return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-
-            return false;
+                eventGridEvent.Id,
+                eventGridEvent.EventType,
+                eventGridEvent.Subject,
+                eventGridEvent.EventTime.ToString(),
+                JsonConvert.SerializeObject(eventGridEvent.Data));
         }
 
         #endregion

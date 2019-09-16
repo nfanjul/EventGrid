@@ -10,15 +10,15 @@ namespace EventGridConsole.Core
 {
     class Program
     {
-        private const string TOPIC_ENDPOINT = "https://mytopicnfc.westeurope-1.eventgrid.azure.net/api/events";
-        private const string KEY = "sFHiIFIjMhIoB10aOebhs2tZcsfdatqx44xCip9+s94=";
+        private const string TOPIC_ENDPOINT = "https://mytopicnfc.francecentral-1.eventgrid.azure.net/api/events";
+        private const string KEY = "fWVgrHfctmNcw+IeAY5JASngt4oxo0N1Da3OK7bycWA=";
 
         static void Main(string[] args)
         {
             while (true)
             {
                 #region Console code
-                Console.Title = "Global Integration Bootcamp - 30 de marzo de 2019";
+                Console.Title = "Net Core Conf - 28 de septiermbre de 2019";
                 Console.Write("Introduzca la información del equipo:" + "\n");
                 Console.WriteLine("Nombre: ");
                 var name = Console.ReadLine();
