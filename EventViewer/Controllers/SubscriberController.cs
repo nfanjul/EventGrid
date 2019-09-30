@@ -1,14 +1,11 @@
 ﻿using EventViewer.Hubs;
-using EventViewer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+// Show 1
 using Microsoft.Azure.EventGrid;
 using Microsoft.Azure.EventGrid.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,6 +37,7 @@ namespace EventViewer.Controllers
         {
             using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
+                // Show 2
                 string requestContent = await reader.ReadToEndAsync();
                 EventGridSubscriber eventGridSubscriber = new EventGridSubscriber();
                 EventGridEvent[] eventGridEvents = eventGridSubscriber.DeserializeEventGridEvents(requestContent);
@@ -47,9 +45,11 @@ namespace EventViewer.Controllers
                 {
                     if (eventGridEvent.Data is SubscriptionValidationEventData)
                     {
+                        // SWOW 3
                         var validationResult = await ValidationHandler(eventGridEvent);
                         return Ok(validationResult);
                     }
+                    // SHOW 5
                     await EventCustomHandler(eventGridEvent);
                     return Ok();
                 }
@@ -64,7 +64,7 @@ namespace EventViewer.Controllers
         private async Task<SubscriptionValidationResponse> ValidationHandler(EventGridEvent eventGridEvent)
         {
             await EventCustomHandler(eventGridEvent);
-
+            // SHOW 4
             var eventData = (SubscriptionValidationEventData)eventGridEvent.Data;
             return new SubscriptionValidationResponse()
             {

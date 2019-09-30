@@ -19,6 +19,24 @@ namespace EventGridConsole.Core
             {
                 #region Console code
                 Console.Title = "Net Core Conf - 28 de septiermbre de 2019";
+
+                Console.WriteLine("Net Core Conf - 28 de septiermbre de 2019" + "\n" + "\n");
+                Console.WriteLine("                                .oMc");
+                Console.WriteLine("                             .MMMMMP");
+                Console.WriteLine("                           .MM888MM");
+                Console.WriteLine("     ....                .MM88888MP");
+                Console.WriteLine("     MMMMMMMMb.         d8MM8tt8MM");
+                Console.WriteLine("      MM88888MMMMc `:' dMME8ttt8MM");
+                Console.WriteLine("       MM88tt888EMMc:dMM8E88tt88MP");
+                Console.WriteLine("        MM8ttt888EEM8MMEEE8E888MC");
+                Console.WriteLine("        `MM888t8EEEM8MMEEE8t8888Mb");
+                Console.WriteLine("         \"MM88888tEM8\"MME88ttt88MM");
+                Console.WriteLine("          dM88ttt8EM8\"MMM888ttt8MM");
+                Console.WriteLine("          MM8ttt88MMº\" \" \"MMNICKMM\"");
+                Console.WriteLine("          3M88888MM\"      \"MMMP\"");
+                Console.WriteLine("           \"MNICKM\"");
+                Console.WriteLine("\n" + "\n");
+
                 Console.Write("Introduzca la información del equipo:" + "\n");
                 Console.WriteLine("Nombre: ");
                 var name = Console.ReadLine();
@@ -27,6 +45,7 @@ namespace EventGridConsole.Core
                 Console.WriteLine("Pais: ");
                 var country = Console.ReadLine();
                 #endregion
+                // Show 6
                 var events = new List<Event>
                 {
                     new Event { UpdateProperties = new Team { Name = name, Stadium = stadium, Country = country, Type = "All" } }
@@ -38,23 +57,18 @@ namespace EventGridConsole.Core
 
         private static async Task SendEventsToTopic(object events)
         {
-            // Create a HTTP client which we will use to post to the Event Grid Topic
             var httpClient = new HttpClient();
 
-            // Add key in the request headers
+            // SHOW 7
             httpClient.DefaultRequestHeaders.Add("aeg-sas-key", KEY);
-
-            // Event grid expects event data as JSON
             var json = JsonConvert.SerializeObject(events);
-
-            // Create request which will be sent to the topic
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            // Send request
             Console.WriteLine("Sending event to Event Grid...");
+            // SHOW 8 FIN
             var result = await httpClient.PostAsync(TOPIC_ENDPOINT, content);
 
-            // Show result
+  
             Console.WriteLine($"Event sent with result: {result.ReasonPhrase}");
             Console.WriteLine();
         }
